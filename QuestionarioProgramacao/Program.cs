@@ -2,10 +2,12 @@
 
 namespace QuestionarioProgramacao
 {
-    class MaiorNumero
+    public class Program
     {
         static void Main(string[] args)
         {
+            // 1 - Em C#, encontre o maior numero inteiro em um array
+
             int maiorNumero = 0;
             int[] numeros = new int[5];
             numeros[0] = 10;
@@ -20,10 +22,19 @@ namespace QuestionarioProgramacao
                     maiorNumero = numeros[i];
             }
 
+            // Exibe em um prompt o maior número do array.
             Console.WriteLine(maiorNumero);
-
-            // Mantém o console aberto.
             Console.ReadKey();
+
+            ArquivosTelefone.Executar();
+        }
+    }
+
+    public class ArquivosTelefone
+    {
+        public static void Executar()
+        {
+            
         }
     }
 }
