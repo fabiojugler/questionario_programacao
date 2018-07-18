@@ -2,7 +2,7 @@
 
 namespace QuestionarioProgramacao
 {
-    class Program
+    class MaiorNumero
     {
         static void Main(string[] args)
         {
