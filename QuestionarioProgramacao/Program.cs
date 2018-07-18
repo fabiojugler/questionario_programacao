@@ -6,17 +6,11 @@ namespace QuestionarioProgramacao
 {
     public class Program
     {
+        // 1 - Em C#, encontre o maior numero inteiro em um array
         static void Main(string[] args)
         {
-            // 1 - Em C#, encontre o maior numero inteiro em um array
-
             int maiorNumero = 0;
-            int[] numeros = new int[5];
-            numeros[0] = 10;
-            numeros[1] = 52;
-            numeros[2] = 67;
-            numeros[3] = 31;
-            numeros[4] = 19;
+            int[] numeros = { 10, 52, 67, 31, 19 };
 
             for (int i = 0; i < numeros.Length; i++)
             {
@@ -28,17 +22,18 @@ namespace QuestionarioProgramacao
             Console.WriteLine(maiorNumero);
             Console.ReadKey();
 
+            // Executa o exercício 2 ao pressionar qualquer tecla
             ArquivosTelefone.Executar();
         }
     }
 
+    // 2 - Em C#, me passe a lista de arquivos texto em um diretório específico quem possuem em seu conteúdo números de telefone em um formato específico.
     public class ArquivosTelefone
     {
         public static void Executar()
         {
-            // 2 - Em C#, me passe a lista de arquivos texto em um diretório específico quem possuem em seu conteúdo números de telefone em um formato específico.
+            #region Geração dos arquivos de texto
 
-            // arquivo01.txt
             using (StreamWriter writer = new StreamWriter("C:/Users/Public/arquivo01.txt"))
             {
                 writer.WriteLine("(41)32566666");
@@ -46,7 +41,6 @@ namespace QuestionarioProgramacao
                 writer.WriteLine("3256-6666");
             }
 
-            // arquivo02.txt
             using (StreamWriter writer = new StreamWriter("C:/Users/Public/arquivo02.txt"))
             {
                 writer.WriteLine("(41)88760192");
@@ -54,7 +48,6 @@ namespace QuestionarioProgramacao
                 writer.WriteLine("(41)98876-0192");
             }
 
-            // arquivo03.txt
             using (StreamWriter writer = new StreamWriter("C:/Users/Public/arquivo03.txt"))
             {
                 writer.WriteLine("3398-3456");
@@ -65,12 +58,13 @@ namespace QuestionarioProgramacao
             string diretorio = "C:/Users/Public/";
             string[] arquivos = { "arquivo01.txt", "arquivo02.txt", "arquivo03.txt" };
 
+            #endregion
+            
+            // Formato de telefone a ser procurado nos arquivos: (XX)9XXXX-XXXX ou (XX)XXXX-XXXX
+            string telefoneDDDeSeparador = @"^(\([0-9]{2}\))([9]{1})?([0-9]{4})-([0-9]{4})$";
+            Regex rx = new Regex(telefoneDDDeSeparador);
 
-
-            // (XX)9XXXX-XXXX ou (XX)XXXX-XXXX
-            string regexTelefone = @"^(\([0-9]{2}\))\s?([9]{1})?([0-9]{4})-([0-9]{4})$";
-            Regex rx = new Regex(regexTelefone);
-
+            // Realiza a busca nos arquivos
             for (int i = 0; i < arquivos.Length; i++)
             {
                 string arquivo = diretorio + arquivos[i];
@@ -85,7 +79,7 @@ namespace QuestionarioProgramacao
                     {
                         MatchCollection matches = rx.Matches(linha);
                         if (matches.Count > 0)
-                            Console.WriteLine(arquivos[i]);
+                            Console.WriteLine(arquivos[i] + " - " + linha);
                     }
                 }
             }
