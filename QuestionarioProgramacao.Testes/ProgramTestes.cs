@@ -1,9 +1,5 @@
 ﻿using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 
 namespace QuestionarioProgramacao.Testes
 {
@@ -11,11 +7,17 @@ namespace QuestionarioProgramacao.Testes
     public class ProgramTestes
     {
         [Test]
-        public void DevoSomarDoisNumeros()
+        public void DevoCopiarImagens()
         {
-            
+            //string destino = CopiarImagens.Executar();
+            CopiarImagens.Executar("pastaTeste");
 
-            //Assert.That(result, Is.EqualTo(3));
+            // Verifica se a pasta com o nome informado pelo usuário existe
+            DirectoryAssert.Exists(@"C:/pastaTeste");
+
+            // Verifica se as imagens foram copiadas
+            DirectoryInfo di = new DirectoryInfo(@"C:/pastaTeste");
+            Assert.That(di.GetFiles().Length > 0);
         }
     }
 }

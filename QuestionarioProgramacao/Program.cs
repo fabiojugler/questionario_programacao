@@ -20,9 +20,10 @@ namespace QuestionarioProgramacao
 
             // Exibe em um prompt o maior número do array.
             Console.WriteLine(maiorNumero);
-            Console.ReadKey();
+
 
             // Executa o exercício 2 ao pressionar qualquer tecla
+            Console.WriteLine("-------");
             ArquivosTelefone.Executar();
         }
     }
@@ -59,7 +60,7 @@ namespace QuestionarioProgramacao
             string[] arquivos = { "arquivo01.txt", "arquivo02.txt", "arquivo03.txt" };
 
             #endregion
-            
+
             // Formato de telefone a ser procurado nos arquivos: (XX)9XXXX-XXXX ou (XX)XXXX-XXXX
             string telefoneDDDeSeparador = @"^(\([0-9]{2}\))([9]{1})?([0-9]{4})-([0-9]{4})$";
             Regex rx = new Regex(telefoneDDDeSeparador);
@@ -83,6 +84,61 @@ namespace QuestionarioProgramacao
                     }
                 }
             }
+
+
+            // Executa o exercício 3 ao pressionar qualquer tecla
+            Console.WriteLine("-------");
+            CopiarImagens.Executar();
+        }
+    }
+
+    // 3 - Em C#, Dentro do “C:” crie uma pasta dinamicamente e copie imagens de um determinado diretório para este, aplique TDD para executar os testes. 
+    public class CopiarImagens
+    {
+        public static void Executar(string nomePasta = null)
+        {
+            string origem = "Imagens";
+            string destino = "";
+
+            if (!string.IsNullOrEmpty(nomePasta))
+            {
+                destino = Path.Combine("C:/", nomePasta);
+            }
+            else
+            {
+                Console.Write("Informe o nome da pasta que será criada na unidade C, onde serão salvas as imagens: ");
+                string nomePastaDestino = Console.ReadLine();
+                destino = Path.Combine("C:/", nomePastaDestino);
+            }
+            
+            string nomeArquivo, nomeArquivoDestino;
+
+            try
+            {
+                // Cria a pasta de destino das imagens (se necessário)
+                if (!Directory.Exists(destino))
+                    Directory.CreateDirectory(destino);
+
+                string[] arquivos = Directory.GetFiles(origem);
+
+                // Copia todas as imagens, substituindo as que já existem
+                foreach (string a in arquivos)
+                {
+                    nomeArquivo = Path.GetFileName(a);
+                    nomeArquivoDestino = Path.Combine(destino, nomeArquivo);
+                    File.Copy(a, nomeArquivoDestino, true);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+
+            //Console.WriteLine("Imagens copiadas com sucesso");
+            //Console.WriteLine("-------");
+
+            //Console.WriteLine("Pressione qualquer tecla para sair...");
+            //Console.ReadKey();
         }
     }
 }
